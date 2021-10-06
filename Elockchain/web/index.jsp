@@ -29,12 +29,13 @@
             </script>
     </head>
     <body>
+        
         <div id="d1" style="display: block;">
-            <div id="hello"></div>
+            <jsp:include page="/signup_form.jsp"></jsp:include><Br>
             <button onclick="switchd('d')">Login Instead</button>
         </div>
          <div id="d2" style="display: none;">
-            <h1>login </h1>
+            <jsp:include page="/login_form.jsp"></jsp:include><Br>
             <button onclick="switchd('d')">SignUp Instead</button>
         </div>
     </body>

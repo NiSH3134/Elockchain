@@ -1,6 +1,6 @@
 <%-- 
-    Document   : newjsp
-    Created on : 1 Oct, 2021, 5:10:03 PM
+    Document   : login_form
+    Created on : 6 Oct, 2021, 8:27:24 PM
     Author     : A 04 Nishant Badlani
 --%>
 
@@ -12,6 +12,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="s1">
+            UserName: <input type="text">
+            <Br>
+            <input type="submit">
+        </form>
     </body>
 </html>
