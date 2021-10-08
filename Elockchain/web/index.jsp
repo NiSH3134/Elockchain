@@ -29,7 +29,8 @@
             </script>
     </head>
     <body>
-        Hello All
+        Hello 
+        test 1 ashutosh
         <div id="d1" style="display: block;">
             <jsp:include page="/signup_form.jsp"></jsp:include><Br>
             <button onclick="switchd('d')">Login Instead</button>
