@@ -33,11 +33,11 @@
         test 1 ashutosh
         test 2 nishant
         <div id="d1" style="display: block;">
-            <jsp:include page="/signup_form.jsp"></jsp:include><Br>
+            <jsp:include page="/pages/signup_form.jsp"></jsp:include><Br>
             <button onclick="switchd('d')">Login Instead</button>
         </div>
          <div id="d2" style="display: none;">
-            <jsp:include page="/login_form.jsp"></jsp:include><Br>
+            <jsp:include page="/pages/login_form.jsp"></jsp:include><Br>
             <button onclick="switchd('d')">SignUp Instead</button>
         </div>
     </body>
