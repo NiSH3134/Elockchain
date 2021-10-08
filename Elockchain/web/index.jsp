@@ -31,6 +31,7 @@
     <body>
         Hello 
         test 1 ashutosh
+        test 2 nishant
         <div id="d1" style="display: block;">
             <jsp:include page="/signup_form.jsp"></jsp:include><Br>
             <button onclick="switchd('d')">Login Instead</button>
