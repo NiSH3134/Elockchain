@@ -17,5 +17,11 @@
 </html>
 
 <%--
-    
+    Page 1:-
+    UID
+    M Page 2:-
+        -> Only OTP (on Page 1)
+        -> Password (on Page 1)
+        -> OTP or Face 
+        -> Ony Face
 --%>
