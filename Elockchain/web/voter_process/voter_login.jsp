@@ -1,6 +1,6 @@
 <%-- 
     Document   : newjsp
-    Created on : 12 Oct, 2021, 7:13:56 PM
+    Created on : 12 Oct, 2021, 7:14:00 PM
     Author     : A 04 Nishant Badlani
 --%>
 
@@ -15,3 +15,7 @@
         <h1>Hello World!</h1>
     </body>
 </html>
+
+<%--
+    
+--%>

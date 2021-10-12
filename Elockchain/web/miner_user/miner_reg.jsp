@@ -1,6 +1,6 @@
 <%-- 
     Document   : newjsp
-    Created on : 12 Oct, 2021, 7:14:00 PM
+    Created on : 12 Oct, 2021, 7:13:56 PM
     Author     : A 04 Nishant Badlani
 --%>
 
@@ -15,3 +15,17 @@
         <h1>Hello World!</h1>
     </body>
 </html>
+
+<%--
+    Miner Registration
+
+    Page 1:
+    Name, Contact, Email
+
+    Page 2: 
+    OTP module -> Confirm
+    PRE_DISABLED FORM
+    Account No, IFSC
+
+    Redirect Login
+--%>

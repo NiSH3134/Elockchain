@@ -19,3 +19,12 @@
         </form>
     </body>
 </html>
+
+<%--
+    User Details to be asked for SIGN UP:
+    Page 1:- 
+        Name, Phone No, Email Id
+    Page 2:-
+        OTP module, Password Set, Username 
+    Redirect to Sign In
+--%>
