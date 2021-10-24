@@ -5,40 +5,169 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ELOCKCHAIN Log in and Sign Up</title>
-        <script>
-        function switchd(d)
-            {
-                var e1=d+'2';
-                var e2=d+'1';
-                if(document.getElementById(e1).style.display == 'block')
-                {
-                    document.getElementById(e1).style.display='none';
-                    document.getElementById(e2).style.display='block';
-                }
-                else
-                {
-                    document.getElementById(e2).style.display='none';
-                    document.getElementById(e1).style.display='block';
-                }
-            }
-            </script>
-    </head>
-    <body>
-        Hello 
-        test 1 ashutosh
-        test 2 nishant
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/css1.css">
+    
+    
+    <title>Host</title>
+</head>
+
+<body>
+        
         <div id="d1" style="display: block;">
-            <jsp:include page="/host_user/signup_form.jsp"></jsp:include><Br>
-            <button onclick="switchd('d')">Login Instead</button>
+            <div class="container">
+                <div id="block1">
+                    <img src="images/l.png" width="400"><br>
+                    <h1>Make Your Own New World</h1>
+                    <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
+                </div>
+                <div class="box"; id="block2">
+                    <h1>Host Sign up</h1>
+                    <div class="user">
+                        
+        
+                        <i class="fas fa-user"></i>
+                        <input 
+                        type="text"
+                        name="name"
+                        id="name"
+                        autocomplete="off"
+                        placeholder="full name"
+                        />
+        
+                        <i class="fas fa-user"></i>
+                        <input 
+                        type="number"
+                        name="mobile"
+                        id="mobile"
+                        autocomplete="off"
+                        placeholder="mobile number"
+                        />
+        
+                        <i class="fas fa-user"></i>
+                        <input 
+                        type="email"
+                        name="email"
+                        id="email"
+                        autocomplete="off"
+                        placeholder="email id"
+                        />
+        
+                    </div>
+                    
+                    <div class="login-btn">
+                        <button id="d1" class="btn" onclick="switchd('d1','1','d')">Next</button><br>  
+                        <button class="btn" onclick="switchd('d1','2','d')">login</button>            
+                    </div>
+                </div>
+            </div>
         </div>
+
+
          <div id="d2" style="display: none;">
-            <jsp:include page="/host_user/login_form.jsp"></jsp:include><Br>
-            <button onclick="switchd('d')">SignUp Instead</button>
+            <div class="container">
+                <div id="block1">
+                    <img src="images/l.png" width="400"><br>
+                    <h1>Make Your Own New World</h1>
+                    <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
+                </div>
+                <div class="box" id="block2">
+                    <h1>Host Sign up</h1>
+                    <div class="user">
+                        
+        
+                        <i class="fas fa-user"></i>
+                        <input 
+                        type="number"
+                        name="otp"
+                        id="otp"
+                        autocomplete="off"
+                        placeholder="OTP"
+                        />
+        
+                        <i class="fas fa-user"></i>
+                        <input 
+                        type="text"
+                        name="username"
+                        id="username"
+                        autocomplete="off"
+                        placeholder="create username"
+                        />
+        
+                        <i class="fas fa-unlock-alt"></i>
+                        <input 
+                        type="password"
+                        name="password"
+                        id="password"
+                        autocomplete="off"
+                        placeholder="password"
+                        />
+        
+                        <i class="fas fa-unlock-alt"></i>
+                        <input 
+                        type="password2"
+                        name="password2"
+                        id="password2"
+                        autocomplete="off"
+                        placeholder="confirm password"
+                        />
+        
+                    </div>
+                    
+                    <div class="login-btn">
+                        <button class="btn">Next</button>
+                        <p class="pre" onclick="switchd('d2','3','d')">Previous-Page</p>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
-    </body>
+
+
+        <div id="d3" style="display: none;">
+            <div class="container">
+                <div id="block1">
+                    <img src="images/l.png" width="400"><br>
+                    <h1>Make Your Own New World</h1>
+                    <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
+                </div>
+                <div class="box" id="block2">
+                    <h1>Host Log In</h1>
+                    <div class="user">
+                        <i class="fas fa-user"></i>
+                        <input 
+                        type="text"
+                        name="username"
+                        id="username"
+                        autocomplete="off"
+                        placeholder="username"
+                        />
+        
+                        <i class="fas fa-unlock-alt"></i>
+                        <input 
+                        type="password"
+                        name="password"
+                        id="password"
+                        autocomplete="off"
+                        placeholder="password"
+                        />
+        
+                    </div>
+                    
+                    <div class="login-btn">
+                        <button class="btn" type="submit">Submit</button>
+                        <p class="reset-password">Forgot Password</p>
+                        <button class="btn" type="submit" onclick="switchd('d3','4','d')">Create New Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="js/host.js"></script>
 </html>
