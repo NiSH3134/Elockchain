@@ -16,6 +16,10 @@
         <servlet-name>HostLogin</servlet-name>
         <servlet-class>host.HostLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MinerLogin</servlet-name>
+        <servlet-class>miner.MinerLogin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HostServlet</servlet-name>
         <url-pattern>/HostServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>HostLogin</servlet-name>
         <url-pattern>/HostLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MinerLogin</servlet-name>
+        <url-pattern>/MinerLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

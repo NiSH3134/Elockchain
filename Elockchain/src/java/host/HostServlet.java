@@ -33,9 +33,9 @@ public class HostServlet extends HttpServlet
         {   
             db.database db=new db.database();
             HiD="H"+RandomGen.randomGen(5);
-            if(db.checkHiD(HiD)>0) {HiD="H"+RandomGen.randomGen(5);}
-            if(db.checkEmail((String)req.getParameter("email"))>0) {} //send error back to login page
-            if(db.checkPhno((String)req.getParameter("mobile"))>0) {}   //send error back to login page
+            if(db.checkUiD(HiD,"host")>0) {HiD="H"+RandomGen.randomGen(5);}
+            if(db.checkEmail((String)req.getParameter("email"),"host")>0) {} //send error back to login page
+            if(db.checkPhno((String)req.getParameter("mobile"),"host")>0) {}   //send error back to login page
             hb=new hostBean(req.getParameter("fname"),req.getParameter("lname"),HiD,req.getParameter("email"),req.getParameter("mobile"),req.getParameter("password"));
             db.saveHostDetail(hb);
             db=null;
@@ -48,6 +48,7 @@ public class HostServlet extends HttpServlet
         }
 //        RequestDispatcher rd=req.getRequestDispatcher("index.jsp#lession1");
 //        rd.forward(req, res);
+//pw.println("Hello");
         res.sendRedirect("index.jsp?s=sl");
     }
 }

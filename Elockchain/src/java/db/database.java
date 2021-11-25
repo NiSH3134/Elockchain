@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import beans.hostBean;
+import beans.minerBean;
 /**
  *
  * @author A 04 Nishant Badlani
@@ -59,8 +60,9 @@ public class database
             ps.setString(4, hb.getEmail());
             ps.setString(5, hb.getPhno());
             ps.setString(6, hb.getPassword());
-            r=ps.executeUpdate();
+            r=ps.executeUpdate(); 
             disconnect();
+            query=null;
         }
         catch(Exception e)
         {
@@ -70,13 +72,48 @@ public class database
         return r;
     }
     
-    public int checkHiD(String HiD)
+    public int saveMinerDetail(minerBean mb)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into miner values(?,?,?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            ps.setString(1, mb.getFname());
+            ps.setString(2, mb.getLname());
+            ps.setString(3, mb.getMiD());
+            ps.setString(4, mb.getEmail());
+            ps.setString(5, mb.getPhone());
+            ps.setString(6, mb.getAcc_no());
+            ps.setString(7, mb.getAcc_ifsc());
+            ps.setString(8, mb.getPassword());
+            r=ps.executeUpdate(); 
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+
+    public int checkUiD(String UiD,String type)
     {
         int chk=0;
         try
         {
             connect();
-            query="select HiD from hostdata where HiD='"+HiD+"'";
+            if(type.equals("host"))
+            {
+                query="select HiD from hostdata where HiD='"+UiD+"'";
+            }
+            else if(type.equals("miner"))
+            {
+                query="select MiD from miner where MiD='"+UiD+"'";
+            }
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery();
             while(rs.next())
@@ -84,6 +121,7 @@ public class database
                 chk++;
             }
             disconnect();
+            query=null;
         }
         catch(Exception e)
         {
@@ -93,13 +131,20 @@ public class database
         return chk;
     }
     
-    public int checkPhno(String phone)
+    public int checkPhno(String phone,String type)
     {
         int chk=0;
         try
         {
             connect();
-            query="select HiD from hostdata where phone='"+phone+"'";
+            if(type.equals("host"))
+            {
+                query="select HiD from hostdata where phone='"+phone+"'";
+            }
+            else if(type.equals("miner"))
+            {
+                query="select MiD from miner where phone='"+phone+"'";
+            }
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery();
             while(rs.next())
@@ -107,6 +152,7 @@ public class database
                 chk++;
             }
             disconnect();
+            query=null;
         }
         catch(Exception e)
         {
@@ -116,13 +162,20 @@ public class database
         return chk;
     }
     
-    public int checkEmail(String email)
+    public int checkEmail(String email,String type)
     {
         int chk=0;
         try
         {
             connect();
-            query="select HiD from hostdata where email='"+email+"'";
+            if(type.equals("host"))
+            {
+                query="select HiD from hostdata where email='"+email+"'";
+            }
+            else if(type.equals("miner"))
+            {
+                query="select MiD from miner where email='"+email+"'";
+            }
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery();
             while(rs.next())
@@ -130,6 +183,7 @@ public class database
                 chk++;
             }
             disconnect();
+            query=null;
         }
         catch(Exception e)
         {
@@ -139,13 +193,20 @@ public class database
         return chk;
     }
     
-    public int checkHost(hostBean hb)
+    public int checkHostPw(String pw,String type)
     {
         int chk=0;
         try
         {
             connect();
-            query="select HiD from hostdata where HiD='"+hb.getHiD()+"'";
+            if(type.equals("host"))
+            {
+                query="select HiD from hostdata where password='"+pw+"'";
+            }
+            else if(type.equals("miner"))
+            {
+                query="select MiD from miner where password='"+pw+"'";
+            }
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery();
             while(rs.next())
@@ -153,29 +214,7 @@ public class database
                 chk++;
             }
             disconnect();
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return chk;
-    }
-    
-    public int checkHostPw(hostBean hb)
-    {
-        int chk=0;
-        try
-        {
-            connect();
-            query="select HiD from hostdata where HiD='"+hb.getHiD()+"' and password='"+hb.getPassword()+"'";
-            PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                chk++;
-            }
-            disconnect();
+            query=null;
         }
         catch(Exception e)
         {

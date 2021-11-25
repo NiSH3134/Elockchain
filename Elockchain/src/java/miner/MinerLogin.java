@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package host;
+package miner;
 
-import beans.hostBean;
+import beans.minerBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,25 +17,25 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author A 04 Nishant Badlani
  */
-public class HostLogin extends HttpServlet 
+public class MinerLogin extends HttpServlet 
 {
 
     public void doPost(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException
     {
         PrintWriter pw=res.getWriter();
-        hostBean hb=null;
+        minerBean mb=null;
         try
         {
             db.database db=new db.database();
-            if(db.checkUiD((String)req.getParameter("username"),"host")==0) 
+            if(db.checkUiD((String)req.getParameter("username"),"miner")==0) 
             {
-                res.sendRedirect("index.jsp?s=ude");
+                res.sendRedirect("miner_user/miner_reg.jsp?s=ude");
             }
             else 
             {
-                if(db.checkHostPw((String)req.getParameter("password"),"host")==0)
+                if(db.checkHostPw((String)req.getParameter("password"),"miner")==0)
                 {
-                    res.sendRedirect("index.jsp?s=wp");
+                    res.sendRedirect("miner_user/miner_reg.jsp?s=wp");
                 }
                 else
                 {
