@@ -11,76 +11,44 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import beans.hostBean;
+import db.*;
+import OtherClasses.RandomGen;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
  * @author A 04 Nishant Badlani
  */
-public class HostServlet extends HttpServlet {
+public class HostServlet extends HttpServlet 
+{
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HostServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HostServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    public void doPost(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException
+    {
+        PrintWriter pw=res.getWriter();
+        hostBean hb=null;
+        String HiD=null;
+        //(String fname, String lname, String hiD, String email, String phno, String password)
+        try
+        {   
+            db.database db=new db.database();
+            HiD="H"+RandomGen.randomGen(5);
+            if(db.checkHiD(HiD)>0) {HiD="H"+RandomGen.randomGen(5);}
+            if(db.checkEmail((String)req.getParameter("email"))>0) {} //send error back to login page
+            if(db.checkPhno((String)req.getParameter("mobile"))>0) {}   //send error back to login page
+            hb=new hostBean(req.getParameter("fname"),req.getParameter("lname"),HiD,req.getParameter("email"),req.getParameter("mobile"),req.getParameter("password"));
+            db.saveHostDetail(hb);
+            db=null;
+            hb=null;
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+//        RequestDispatcher rd=req.getRequestDispatcher("index.jsp#lession1");
+//        rd.forward(req, res);
+        res.sendRedirect("index.jsp?s=sl");
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
+

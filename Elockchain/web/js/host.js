@@ -35,3 +35,11 @@ function switchd(d,c,id)
                 document.getElementById(e3).style.display='none';
             }
         }
+        
+$('#formid').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});

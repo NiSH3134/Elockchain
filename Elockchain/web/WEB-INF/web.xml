@@ -12,6 +12,10 @@
         <servlet-name>VoterServlet</servlet-name>
         <servlet-class>voter.VoterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HostLogin</servlet-name>
+        <servlet-class>host.HostLogin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HostServlet</servlet-name>
         <url-pattern>/HostServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>VoterServlet</servlet-name>
         <url-pattern>/VoterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HostLogin</servlet-name>
+        <url-pattern>/HostLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
