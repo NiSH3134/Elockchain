@@ -19,8 +19,6 @@
 </head>
 
 <body>
-    
-   
     <form action="HostServlet" method="POST">
         <div id="d1" style="display: block;">
             <div class="container">
@@ -183,6 +181,7 @@
         </div>
     </form>
 </body>
+<!--Disable Enter Key for form Submission-->
 <script>document.addEventListener('keypress', function (e) {
             if (e.keyCode === 13 || e.which === 13) {
                 e.preventDefault();

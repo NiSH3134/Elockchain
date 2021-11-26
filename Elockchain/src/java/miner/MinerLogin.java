@@ -5,6 +5,7 @@
  */
 package miner;
 
+import OtherClasses.Hashing;
 import beans.minerBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +27,7 @@ public class MinerLogin extends HttpServlet
         minerBean mb=null;
         try
         {
+            String password=Hashing.returnHash((String)req.getParameter("lpassword"));
             db.database db=new db.database();
             if(db.checkUiD((String)req.getParameter("username"),"miner")==0) 
             {
@@ -33,7 +35,7 @@ public class MinerLogin extends HttpServlet
             }
             else 
             {
-                if(db.checkHostPw((String)req.getParameter("password"),"miner")==0)
+                if(db.checkHostPw(password,"miner")==0)
                 {
                     res.sendRedirect("miner_user/miner_reg.jsp?s=wp");
                 }

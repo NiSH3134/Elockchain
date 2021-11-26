@@ -5,6 +5,7 @@
  */
 package miner;
 
+import OtherClasses.Hashing;
 import OtherClasses.RandomGen;
 import beans.minerBean;
 import java.io.IOException;
@@ -25,15 +26,17 @@ public class MinerServlet extends HttpServlet
         PrintWriter pw=res.getWriter();
         minerBean mb=null;
         String MiD=null;
+        String password=null;
         //(String fname, String lname, String miD, String email, String phone, String acc_no, String acc_ifsc, String password)
         try
         {   
+            password=Hashing.returnHash((String)req.getParameter("password"));
             db.database db=new db.database();
             MiD="M"+RandomGen.randomGen(5);
             if(db.checkUiD(MiD,"miner")>0) {MiD="M"+RandomGen.randomGen(5);}
             if(db.checkEmail((String)req.getParameter("email"),"miner")>0) {} //send error back to login page
             if(db.checkPhno((String)req.getParameter("mobile"),"miner")>0) {}   //send error back to login page
-            mb=new minerBean(req.getParameter("fname"),req.getParameter("lname"),MiD,req.getParameter("email"),req.getParameter("mobile"),req.getParameter("account"),req.getParameter("ifsc"),req.getParameter("password"));
+            mb=new minerBean(req.getParameter("fname"),req.getParameter("lname"),MiD,req.getParameter("email"),req.getParameter("mobile"),req.getParameter("account"),req.getParameter("ifsc"),password);
             db.saveMinerDetail(mb);
             db=null;
             mb=null;

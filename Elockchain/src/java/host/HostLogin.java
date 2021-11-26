@@ -5,6 +5,7 @@
  */
 package host;
 
+import OtherClasses.Hashing;
 import beans.hostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,13 +28,14 @@ public class HostLogin extends HttpServlet
         try
         {
             db.database db=new db.database();
+            String password=Hashing.returnHash((String)req.getParameter("lpassword"));
             if(db.checkUiD((String)req.getParameter("username"),"host")==0) 
             {
                 res.sendRedirect("index.jsp?s=ude");
             }
             else 
             {
-                if(db.checkHostPw((String)req.getParameter("password"),"host")==0)
+                if(db.checkHostPw(password,"host")==0)
                 {
                     res.sendRedirect("index.jsp?s=wp");
                 }

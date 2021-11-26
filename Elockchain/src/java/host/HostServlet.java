@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import beans.hostBean;
 import db.*;
 import OtherClasses.RandomGen;
+import OtherClasses.Hashing;
 import javax.servlet.RequestDispatcher;
 
 /**
@@ -28,15 +29,17 @@ public class HostServlet extends HttpServlet
         PrintWriter pw=res.getWriter();
         hostBean hb=null;
         String HiD=null;
+        String password=null;
         //(String fname, String lname, String hiD, String email, String phno, String password)
         try
         {   
             db.database db=new db.database();
             HiD="H"+RandomGen.randomGen(5);
+            password=Hashing.returnHash((String)req.getParameter("password"));
             if(db.checkUiD(HiD,"host")>0) {HiD="H"+RandomGen.randomGen(5);}
             if(db.checkEmail((String)req.getParameter("email"),"host")>0) {} //send error back to login page
             if(db.checkPhno((String)req.getParameter("mobile"),"host")>0) {}   //send error back to login page
-            hb=new hostBean(req.getParameter("fname"),req.getParameter("lname"),HiD,req.getParameter("email"),req.getParameter("mobile"),req.getParameter("password"));
+            hb=new hostBean(req.getParameter("fname"),req.getParameter("lname"),HiD,req.getParameter("email"),req.getParameter("mobile"),password);
             db.saveHostDetail(hb);
             db=null;
             hb=null;
