@@ -5,6 +5,7 @@
  */
 package host;
 
+import OtherClasses.Email;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,7 +16,10 @@ import beans.hostBean;
 import db.*;
 import OtherClasses.RandomGen;
 import OtherClasses.Hashing;
+import OtherClasses.MailDetails;
+import OtherClasses.Pw;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,11 +41,17 @@ public class HostServlet extends HttpServlet
             HiD="H"+RandomGen.randomGen(5);
             password=Hashing.returnHash((String)req.getParameter("password"));
             if(db.checkUiD(HiD,"host")>0) {HiD="H"+RandomGen.randomGen(5);}
-            if(db.checkEmail((String)req.getParameter("email"),"host")>0) {} //send error back to login page
-            if(db.checkPhno((String)req.getParameter("mobile"),"host")>0) {}   //send error back to login page
-            hb=new hostBean(req.getParameter("fname"),req.getParameter("lname"),HiD,req.getParameter("email"),req.getParameter("mobile"),password);
+            HttpSession reg=req.getSession(false);
+            String r=(String)reg.getAttribute("email");
+            String s="Your UID for Elockchain";
+            String m="Thankyou for creating ID on our website Elockchain as Host User, Your login ID is : "+HiD+" .";
+            
+            Email.transferEmail(MailDetails.getHost(), MailDetails.getUser(), Pw.getPass(), MailDetails.getPort(), r, s, m);
+            
+            hb=new hostBean((String)reg.getAttribute("fname"),(String)reg.getAttribute("lname"),HiD,(String)reg.getAttribute("email"),(String)reg.getAttribute("phone"),password);
             db.saveHostDetail(hb);
             db=null;
+            reg.invalidate();
             hb=null;
         }
         catch(Exception e)

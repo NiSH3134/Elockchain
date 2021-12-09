@@ -24,6 +24,8 @@ public class database
     public Connection c=null;
     public ResultSet rs=null;
     public String query=null;
+    static long millis=System.currentTimeMillis();  
+    static java.sql.Timestamp d=new java.sql.Timestamp(millis);
     public void connect()
     {
         try
@@ -222,5 +224,67 @@ public class database
             e.printStackTrace();
         }
         return chk;
+    }
+    
+    public int CheckEmailForID(String UID,String Email,String type)
+    {
+        int chk=0;
+        try
+        {
+            connect();
+            if(type.equals("host"))
+            {
+                query="select HiD from hostdata where HiD='"+UID+"' and email='"+Email+"';";
+            }
+            else if(type.equals("miner"))
+            {
+                query="select MiD from miner where MiD='"+UID+"' and email='"+Email+"';";
+            }
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                chk++;
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return chk;
+    }
+    
+    public String UIDforEmail(String Email,String type)
+    {
+        String UiD=null;
+        try
+        {
+            connect();
+            if(type.equals("host"))
+            {
+                query="select * from hostdata where email='"+Email+"';";
+            }
+            else if(type.equals("miner"))
+            {
+                query="select * from miner where email='"+Email+"';";
+            }
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                UiD=rs.getString(3);
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return UiD;
     }
 }

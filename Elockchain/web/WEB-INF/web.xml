@@ -20,6 +20,30 @@
         <servlet-name>MinerLogin</servlet-name>
         <servlet-class>miner.MinerLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HostReg1</servlet-name>
+        <servlet-class>host.HostReg1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MinerReg1</servlet-name>
+        <servlet-class>miner.MinerReg1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPassSev</servlet-name>
+        <servlet-class>OtherClasses.ForgotPassSev</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotIdSev</servlet-name>
+        <servlet-class>OtherClasses.ForgotIdSev</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createES1</servlet-name>
+        <servlet-class>host.createES1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createES2</servlet-name>
+        <servlet-class>host.createES2</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HostServlet</servlet-name>
         <url-pattern>/HostServlet</url-pattern>
@@ -39,6 +63,30 @@
     <servlet-mapping>
         <servlet-name>MinerLogin</servlet-name>
         <url-pattern>/MinerLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HostReg1</servlet-name>
+        <url-pattern>/HostReg1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MinerReg1</servlet-name>
+        <url-pattern>/MinerReg1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassSev</servlet-name>
+        <url-pattern>/ForgotPassSev</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotIdSev</servlet-name>
+        <url-pattern>/ForgotIdSev</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createES1</servlet-name>
+        <url-pattern>/createES1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createES2</servlet-name>
+        <url-pattern>/createES2</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
