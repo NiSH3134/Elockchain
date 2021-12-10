@@ -103,7 +103,7 @@ public class election_create
         try
         {
             connect();
-            query="insert into temp_ec(hid,eid,name_voter,email_voter,vid,vtype,phone_voter,password_voter,photo_voter_path,date_time,type) values(?,?,?,?,?,?,?,?,?,?,?)";
+            query="insert into temp_ec(hid,eid,name_voter,email_voter,vid,vtype,phone_voter,date_time,type) values(?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps=c.prepareStatement(query);
             ps.setString(1, HiD);
             ps.setString(2, EiD);
@@ -111,11 +111,59 @@ public class election_create
             ps.setString(4, obj.getEmailV());
             ps.setString(5, obj.getVid());
             ps.setString(6, obj.getvT());
-            ps.setString(7, obj.getPhotoV());
+            ps.setString(7, obj.getPhoneV());
+            ps.setString(8, t.toString());
+            ps.setString(9, "VD");
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int insert4(election obj, String HiD, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into temp_ec(hid,eid,name_voter,email_voter,vid,vtype,phone_voter,password_voter,date_time,type) values(?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            ps.setString(1, HiD);
+            ps.setString(2, EiD);
+            ps.setString(3, obj.getNameV());
+            ps.setString(4, obj.getEmailV());
+            ps.setString(5, obj.getVid());
+            ps.setString(6, obj.getvT());
+            ps.setString(7, obj.getPhoneV());
             ps.setString(8, obj.getPasswordV());
-            ps.setString(9, obj.getPhotoV());
-            ps.setString(10, t.toString());
-            ps.setString(11, "VD");
+            ps.setString(9, t.toString());
+            ps.setString(10, "VD");
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int insert5(election obj, String HiD, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into temp_ec(hid,eid,name_voter,email_voter,vid,vtype,phone_voter,photo_voter_path,date_time,type) values(?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            ps.setString(1, HiD);
+            ps.setString(2, EiD);
+            ps.setString(3, obj.getNameV());
+            ps.setString(4, obj.getEmailV());
+            ps.setString(5, obj.getVid());
+            ps.setString(6, obj.getvT());
+            ps.setString(7, obj.getPhoneV());
+            ps.setString(8, obj.getPhotoV());
+            ps.setString(9, t.toString());
+            ps.setString(10, "VD");
             r=ps.executeUpdate();
             disconnect();
         }
@@ -135,7 +183,7 @@ public class election_create
 rs=ps.executeQuery();
 while(rs.next())
             {
-               a.add(new election(rs.getString("name_candidate"),rs.getString("des_candidate")));
+               a.add(new election(rs.getString("name_candidate"),rs.getString("des_candidate"),rs.getString("cid")));
             }
             disconnect();
         }
@@ -156,7 +204,7 @@ while(rs.next())
             rs=ps.executeQuery();
             while(rs.next())
             {
-               a.add(new election(rs.getString("name_voter"),rs.getString("vid"),rs.getString("email_voter")));
+               a.add(new election(rs.getString("name_voter"),rs.getString("vid"),rs.getString("vtype"),rs.getString("email_voter")));
             }
             disconnect();
         }
@@ -164,4 +212,242 @@ while(rs.next())
         return a;
     }
     
+    public int removeCandidate(String hid, String eid, String cid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="delete from temp_ec where hid='"+hid+"' and eid='"+eid+"' and cid='"+cid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int removeVoter(String hid, String eid, String vid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="delete from temp_ec where hid='"+hid+"' and eid='"+eid+"' and vid='"+vid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public String getElectionLogo(String hid, String eid)
+    {
+        String path=null;
+        try
+        {
+            connect();
+            query="select logo_election_path from temp_ec where hid='"+hid+"' and eid='"+eid+"' and type='ED';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                path=rs.getString(1);
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return path;
+        
+    }
+    
+    public String getElectionName(String hid, String eid)
+    {
+        String name=null;
+        try
+        {
+            connect();
+            query="select name_election from temp_ec where hid='"+hid+"' and eid='"+eid+"' and type='ED';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                name=rs.getString(1);
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return name;
+        
+    }
+    
+    public int createTB(String HiD, String EiD )
+    {
+        int r=0;
+    
+        try
+        {
+            connect();
+            query="create table elockchaindb."+EiD+"(\n" +
+                    "type varchar(2),\n" +
+                    "path longtext,\n" +
+                    "id varchar(6),\n" +
+                    "name varchar(45),\n" +
+                    "descC longtext,\n" +
+                    "emailV varchar(65),\n" +
+                    "vtype varchar(15),\n" +
+                    "phone_voter varchar(10),\n" +
+                    "password_voter varchar(8),\n" +
+                    "date_time datetime\n" +
+                    ");";
+            PreparedStatement ps=c.prepareStatement(query);
+            r=ps.executeUpdate();
+            
+            String query2="insert into host_election values('"+HiD+"','"+EiD+"','started')";
+            Statement st=c.createStatement();
+            r=r+st.executeUpdate(query2);
+            disconnect();
+            
+        disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return r;
+    }
+    
+                                        //String eid, String nameE, String logoE, String cid, String nameC, String desC, String photoC, String vid,                                                                     //String nameV, String emailV, String phoneV, String passwordV, String photoV, String vT, String date, String type
+                                            //String nameV, String emailV, String phoneV, String passwordV, String photoV, String vT, String date, String type
+    
+    public ArrayList<election> getAllDetails(String hid, String eid)
+    {
+        ArrayList<election> a=new ArrayList<>();
+        try
+        {
+            connect();
+            query="select * from temp_ec where hid='"+hid+"' and eid='"+eid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+               a.add(new election(rs.getString("eid"),rs.getString("name_election"),rs.getString("logo_election_path"),rs.getString("cid"),rs.getString("name_candidate"),rs.getString("des_candidate"),rs.getString("photo_candidate_path"),rs.getString("vid"),rs.getString("name_voter"),rs.getString("email_voter"),rs.getString("phone_voter"),rs.getString("password_voter"),rs.getString("photo_voter_path"),rs.getString("vtype"),rs.getString("date_time"),rs.getString("type")));
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return a;
+    }
+    
+    public int insertMainED(election obj, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into "+EiD+"(type,path,id,name,date_time) values(?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            
+            ps.setString(1, "ED");
+            ps.setString(2, obj.getLogoE());
+            ps.setString(3, obj.getEid());
+            ps.setString(4, obj.getNameE());
+            ps.setString(5, obj.getDate());
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int insertMainCD(election obj, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into "+EiD+"(type,path,id,name,descC,date_time) values(?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            
+            ps.setString(1, "CD");
+            ps.setString(2, obj.getPhotoC());
+            ps.setString(3, obj.getCid());
+            ps.setString(4, obj.getNameC());
+            ps.setString(5, obj.getDesC());
+            ps.setString(6, obj.getDate());
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int insertMainVD_pass(election obj, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into "+EiD+"(type,id,name,emailV,vtype,phone_voter,password_voter,date_time) values(?,?,?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            
+            ps.setString(1, "VD");
+            ps.setString(2, obj.getVid());
+            ps.setString(3, obj.getNameV());
+            ps.setString(4, obj.getEmailV());
+            ps.setString(5, obj.getvT());
+            ps.setString(6, obj.getPhoneV());
+            ps.setString(7, obj.getPasswordV());
+            ps.setString(8, obj.getDate());
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int insertMainVD_otp(election obj, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into "+EiD+"(type,id,name,emailV,vtype,phone_voter,date_time) values(?,?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            
+            ps.setString(1, "VD");
+            ps.setString(2, obj.getVid());
+            ps.setString(3, obj.getNameV());
+            ps.setString(4, obj.getEmailV());
+            ps.setString(5, obj.getvT());
+            ps.setString(6, obj.getPhoneV());
+            ps.setString(7, obj.getDate());
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
+    
+    public int insertMainVD_photo(election obj, String EiD)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into "+EiD+"(type,id,name,emailV,vtype,phone_voter,path,date_time) values(?,?,?,?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            
+            ps.setString(1, "VD");
+            ps.setString(2, obj.getVid());
+            ps.setString(3, obj.getNameV());
+            ps.setString(4, obj.getEmailV());
+            ps.setString(5, obj.getvT());
+            ps.setString(6, obj.getPhoneV());
+            ps.setString(7, obj.getPhotoV());
+            ps.setString(8, obj.getDate());
+            r=ps.executeUpdate();
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return  r;
+    }
 }

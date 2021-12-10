@@ -56,7 +56,7 @@ public class createES2 extends HttpServlet {
             out1.println("HiD: "+HiD+"\nEiD :"+EiD);
             String photo="";
             String CiD="C"+RandomGen.randomGen(5);
-            String path="F:/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"candidate_"+CiD+"/";
+            String path="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"candidate_"+CiD+"/";
             File file=new File(path);
           if(!file.exists())
           {

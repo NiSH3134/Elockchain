@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import db.election_create;
 import beans.election;
+import java.lang.Object;
 /**
  *
  * @author A 04 Nishant Badlani
@@ -42,8 +43,8 @@ public class createES1 extends HttpServlet {
     }
     return null;
 }
+    
    
-  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
@@ -61,7 +62,7 @@ public class createES1 extends HttpServlet {
             String photo="";
             String EiD="E"+RandomGen.randomGen(5);
             id.setAttribute("eid",EiD);
-            String path="F:/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"election_logo/";
+            String path="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"election_logo/";
           File file=new File(path);
           if(!file.exists())
           {
@@ -91,6 +92,7 @@ public class createES1 extends HttpServlet {
             
             
         }
+        
        b=new election();
        obj=new election_create();
        b.setEid(EiD);

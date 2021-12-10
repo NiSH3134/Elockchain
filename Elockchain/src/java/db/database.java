@@ -74,6 +74,32 @@ public class database
         return r;
     }
     
+    public String getHostName(String hid)
+    {
+       String fname=null;
+        try
+        {
+            connect();
+            query="select * from hostdata where HiD='"+hid+"'";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                fname=rs.getString(1)+rs.getString(2);
+            }
+            rs=null;
+            disconnect();
+            query=null;
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+       return fname;
+    }
+    
     public int saveMinerDetail(minerBean mb)
     {
         int r=0;

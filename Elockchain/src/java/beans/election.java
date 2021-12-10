@@ -13,10 +13,10 @@ package beans;
  */
 public class election 
 {
-    String eid,nameE,logoE,cid,nameC,desC,photoC,vid,nameV,emailV,phoneV,passwordV,photoV,vT;
-    //Date td;
+    String eid,nameE,logoE,cid,nameC,desC,photoC,vid,nameV,emailV,phoneV,passwordV,photoV,vT, date, type;
+    
     public election(){}
-    public election(String eid, String nameE, String logoE, String cid, String nameC, String desC, String photoC, String vid, String nameV, String emailV, String phoneV, String passwordV, String photoV, String vT) {
+    public election(String eid, String nameE, String logoE, String cid, String nameC, String desC, String photoC, String vid, String nameV, String emailV, String phoneV, String passwordV, String photoV, String vT, String date, String type) {
         this.eid = eid;
         this.nameE = nameE;
         this.logoE = logoE;
@@ -31,21 +31,34 @@ public class election
         this.passwordV = passwordV;
         this.photoV = photoV;
         this.vT = vT;
+        this.date=date;
+        this.type=type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
     
-    public election(String nameC, String desC)
+    public election(String nameC, String desC, String cid)
     {
         this.nameC = nameC;
         this.desC = desC;
+        this.cid = cid;
     }
     
-    public election(String nameV, String vid, String emailV)
+    public election(String nameV, String vid, String vT, String emailV)
     {
         this.nameV = nameV;
         this.vid = vid;
         this.emailV=emailV;
+        this.vT=vT;
     }
     
+   
     public String getvT() {
         return vT;
     }
@@ -166,5 +179,9 @@ public class election
 //        this.td = td;
 //    }
 //    
+    public String getType() { return type;}
     
+    public void setType(String type) {
+        this.type=type;
+    }
 }

@@ -19,6 +19,7 @@ public class Email
                 return new PasswordAuthentication(u,p);
             }
         };
+        
         Session session=Session.getInstance(pr,a);
         Message msg=new MimeMessage(session);
         msg.setFrom(new InternetAddress(u));
@@ -28,6 +29,7 @@ public class Email
         msg.setText(m);
         Transport.send(msg);
     } 
+    
 }
 
 

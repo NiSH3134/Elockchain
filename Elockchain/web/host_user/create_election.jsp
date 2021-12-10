@@ -4,6 +4,7 @@
     Author     : A 04 Nishant Badlani
 --%>
 
+<%@page import="db.database"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="db.election_create"%>
 <%@page import="beans.election"%>
@@ -29,8 +30,9 @@
         <div class="navbar">
             <div class="navcontainer">
                 <img src="../images/l.png" alt="" width="300px">
-                <ul>
-                    <li class="">Hii Mr</li>
+               <%database d=new database(); HttpSession id=request.getSession(false);%>
+                    <ul> 
+                        <li class="">Hello,  <%=d.getHostName((String)id.getAttribute("hid"))%></li>
                     <li class="active">Home</li>
                     <li class="active">About</li>
                     <li class="active"><a href="../index.jsp?s=loginpage">Logout</a></li>
@@ -49,12 +51,12 @@
                     %>
                     <div class="socialicons">
             <p class="icon">Basic</p>
-            <p class="icon">Candidate</p>
-            <p class="icon">Voter</p>
-            <p class="icon">Preview</p>
-            <p class="icon">Finish</p>
+            <button class="icon">Candidate</button>
+            <button class="icon">Voter</button>
+            <button class="icon">Preview</button>
+            <button class="icon">Finish</button>
         </div>
-                    <div class="box" id="block1">
+                    <div class="box" id="block2">
             <form action="../createES1" method="post" enctype="multipart/form-data">
             <h1>Start Creating Election</h1>
             <div class="user">
@@ -104,11 +106,11 @@
                 {
                     %>
                     <div class="socialicons">
-            <p class="icon">Basic</p>
+            <a href="create_election.jsp?st=basic" style="text-decoration: none;"><p class="icon">Basic</p></a>
             <p class="icon">Candidate</p>
-            <p class="icon">Voter</p>
-            <p class="icon">Preview</p>
-            <p class="icon">Finish</p>
+            <button class="icon">Voter</button>
+            <button class="icon">Preview</button>
+            <button class="icon">Finish</button>
         </div>
                     <div class="box" id="block2">
                         <form action="../createES2" method="post" enctype="multipart/form-data">
@@ -160,14 +162,25 @@
                 <button id="add" type="submit" class="btn">Add Candidate</button>    
             </div></form>
             <br>
-            <div class="login-btn">
-                <button id="d1" type="button" class="btn">Next</button>
-            </div>
-            <table border="1">
-                <th>Name</th><th>Description</th><th>Remove</th>
+            
+            
+                        
+        </div>
+                    <table class="box2" id="block6">
+                <tr>
+                <td width="33%">
+                    <h3 style="color: blue;">Candidate Name</h3>
+                </td>
+                <td width="33%">
+                    <h3 style="color: blue;">Candidate Description</h3>
+                </td>
+                <td width="33%">
+                    <h3 style="color: blue;">Remove Candidate</h3>
+                </td>
+            </tr>
                 <%
                     election_create obj=new election_create();
-                    HttpSession id=request.getSession(false);
+                    
                     ArrayList<election> a=obj.getCandidate((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
                     election b=null;
                     for(int i=0;i<a.size();i++)
@@ -176,17 +189,22 @@
                         
                         %>
                         <tr>
-                            <td><%out.println(b.getNameC());%></td>
-                            <td><%out.println(b.getDesC());%></td>
-                            <td>Remove</td>
+                            <td width="33%"><h4><%out.println(b.getNameC());%></h4></td>
+                            <td width="33%"><h4><%out.println(b.getDesC());%></h4></td>
+                            <td width="33%"><a href="remove_candidate.jsp?cid=<%=b.getCid()%>" style="text-decoration: none;"><button class="btn">Remove</button></a></td>
                         </tr>
                         <%
                     }
                     b=null;
                 %>
+                 <tr>
+                <Td></Td>
+                <td><div class="login-btn">
+                <a href="create_election.jsp?st=voter" style="text-decoration: none;"><button id="d1" type="button" class="btn">Next</button></a>
+            </div></td>
+                <td></td>
+            </tr>
             </table>
-                        
-        </div>
                     
                     <%
                 }
@@ -194,13 +212,13 @@
                 {
                     %>
                     <div class="socialicons">
-            <p class="icon">Basic</p>
-            <p class="icon">Candidate</p>
+            <a href="create_election.jsp?st=basic" style="text-decoration: none;"><p class="icon">Basic</p></a>
+            <a href="create_election.jsp?st=candidate" style="text-decoration: none;"><p class="icon">Candidate</p></a>
             <p class="icon">Voter</p>
-            <p class="icon">Preview</p>
-            <p class="icon">Finish</p>
+            <button class="icon">Preview</p></button>
+            <button class="icon">Finish</p></button>
         </div>
-                    <div class="box" id="block3">
+                    <div class="box" id="block2">
                         <form action="../createES3" method="post" enctype="multipart/form-data">
             <h1>Adding Voter for Election</h1>
             <div class="user">
@@ -209,8 +227,8 @@
                 <i class="fas fa-user"></i>
                 <input 
                 type="text"
-                name="name_voter"
-                id="name_voter"
+                name="nameV"
+                id="nameV"
                 autocomplete="off"
                 placeholder="Voter's Name"
                 />
@@ -219,8 +237,8 @@
                 <i class="fas fa-user"></i>
                 <input 
                 type="email"
-                name="email_voter"
-                id="email_voter"
+                name="emailV"
+                id="emailV"
                 autocomplete="off"
                 placeholder="Voter's Email"
                 />
@@ -229,10 +247,10 @@
                 <i class="fas fa-user"></i>
                 <input 
                 type="text"
-                name="phone_voter"
-                id="phone"
-                maxlen="6"
-                minlen="6"
+                name="phoneV"
+                id="phoneV"
+                maxlen="10"
+                minlen="10"
                 autocomplete="off"
                 placeholder="Voter's Phone Number"
                 />
@@ -262,11 +280,54 @@
                 <button id="add" type="submit" class="btn">Add Voter</button>    
             </div> </form>
             <br>
-            <div class="login-btn">
-                <button id="d1" type="button" class="btn">Next</button>
-            </div>
+           
                         
         </div>
+               <table class="box2" id="block6" border="0">
+            <tr>
+                <td width="11%">
+                    <h3 style="color: blue;">Voter ID</h3>
+                </td>
+                <td width="25%">
+                    <h3 style="color: blue;">Voter Name</h3>
+                </td>
+                <td width="32%">
+                    <h3 style="color: blue;">Voter Email</h3>
+                </td>
+                <td width="26%">
+                    <h3 style="color: blue;">Remove Voter</h3>
+                </td>
+            </tr>
+            <tr>
+                <%
+                    election_create obj=new election_create();
+                    
+                    ArrayList<election> a=obj.getVoter((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
+                    election b=null;
+                    for(int i=0;i<a.size();i++)
+                    {
+                        b=(election)a.get(i);
+                        
+                        %>
+                        <tr>
+                            <td width="11%"><h4><%out.println(b.getVid());%></h4></td>
+                            <td width="25%"><h4><%out.println(b.getNameV());%></h4></td>
+                            <td width="32%"><h4><%out.println(b.getEmailV());%></h4></td>
+                            <td width="26%"><a href="remove_voter.jsp?vid=<%=b.getVid()%>" style="text-decoration: none;"><button class="btn" style="width:90%;">Remove</button></a></td>
+                        </tr>
+                        <%
+                    }
+                    b=null;
+                %>
+            </tr>
+            <tr>
+                <Td></Td>
+                <td><div class="login-btn">
+                <a href="preview.jsp?st=1" style="text-decoration: none;"><button id="d1" type="button" class="btn">Next</button></a>
+            </div></td>
+                <td></td>
+            </tr>
+        </table>     
                     <%
                 }    
 else{} }
@@ -281,8 +342,10 @@ else{} }
         function yesnoCheck(that) {
         if (that.value == "Face") {
             document.getElementById("ifFace").style.display = "block";
+            document.getElementById("photo_voter").required = true;
         } else {
             document.getElementById("ifFace").style.display = "none";
+            document.getElementById("photo_voter").required = false;
         }
 }
     </script>

@@ -45,8 +45,9 @@ public class HostLogin extends HttpServlet
                 {
                     HttpSession id=req.getSession(true);
                     id.setAttribute("hid", (String)req.getParameter("username"));
-                    RequestDispatcher rd=req.getRequestDispatcher("host_user/home.jsp");
-                    rd.include(req, res);
+//                    RequestDispatcher rd=req.getRequestDispatcher("host_user/home.jsp");
+//                    rd.forward(req, res);
+                    res.sendRedirect("host_user/home.jsp");
                 }    
             }
 
