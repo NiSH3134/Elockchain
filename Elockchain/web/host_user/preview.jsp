@@ -3,7 +3,13 @@
     Created on : 10 Dec, 2021, 4:24:00 PM
     Author     : A 04 Nishant Badlani
 --%>
-
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.util.Base64"%>
+<%@page import="org.apache.commons.io.output.ByteArrayOutputStream"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.awt.image.BufferedImage"%>
+<%@page import="java.io.File"%>
+<%@page import="javax.persistence.Convert"%>
 <%@page import="db.database"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
@@ -51,15 +57,22 @@
                 election_create obj=new election_create();
                 
                 String input=obj.getElectionLogo((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
-                String token="/images";
-                String result = input.contains(token) ? token + StringUtils.substringAfter(input, token) : input;
-                String r2="http://localhost:41886/Elockchain"+result;
+                
+                    File file =  new File(input);
+                    FileInputStream fileInputStreamReader = new FileInputStream(file);
+                    byte[] bytes = new byte[(int)file.length()];
+                    fileInputStreamReader.read(bytes);
+                    String abc=new String(Base64.getEncoder().encode(bytes), "UTF-8");
+                    
+                
+                    String path="data:image/png;base64,"+abc;
+            
             %>
                     <tr>
                         <center>
                             <td>
-                                <img src="<%=r2%>"  width="200px">
-                                <%=r2%>
+                                <img src="<%=path%>"  width="200px">
+                                
                                 <%
 //                                    if(request.getParameterMap().containsKey("st"))
 //                                    {

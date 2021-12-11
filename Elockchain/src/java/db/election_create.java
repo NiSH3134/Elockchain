@@ -471,4 +471,110 @@ while(rs.next())
         catch(Exception e) { e.printStackTrace(); }
         return a;
     }
+    
+    public ArrayList<election2> getPermDetailsforViD(String eid,String vid)
+    {
+        ArrayList<election2> a=new ArrayList<>();
+        try
+        {
+            connect();
+            query="select * from "+eid+" where id='"+vid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                //(String type, String path, String id, String name, String descC, String emailV, String vtype, String phone_voter, String password_voter, String date_time)
+               a.add(new election2(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10)));
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return a;
+    }
+    
+    public ArrayList<election2> getPermDetailsforCandidates(String eid)
+    {
+        ArrayList<election2> a=new ArrayList<>();
+        try
+        {
+            connect();
+            query="select * from "+eid+" where type='CD';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                //(String type, String path, String id, String name, String descC)
+               a.add(new election2(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)));
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return a;
+    }
+    
+    public String checkEiD(String eid)
+    {
+        String r="nf";
+        try
+        {
+            connect();
+            query="select * from host_election where eid='"+eid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                if(rs.getString(3).equals("started"))
+                {
+                    r="ok";
+                }
+                else
+                {
+                    r="ended";
+                }
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return r;
+    }
+    
+    public String getElectionLogo2(String eid)
+    {
+        String r="nf";
+        try
+        {
+            connect();
+            query="select path from "+eid+" where type='ED';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                r=rs.getString(1);
+            }
+            rs=null;
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return r;
+    }
+    
+    public String getElectionName2(String eid)
+    {
+        String r="nf";
+        try
+        {
+            connect();
+            query="select name from "+eid+" where type='ED';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                r=rs.getString(1);
+            }
+            rs=null;
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return r;
+    }
 }

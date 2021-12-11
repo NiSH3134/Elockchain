@@ -114,7 +114,7 @@ public class createES3 extends HttpServlet {
             else if(vtype.equals("Face")) 
             {
                 Part filePart = request.getPart("photo_voter");
-                String path="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"voter_"+ViD+"/";
+                String path="F:/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"voter_"+ViD+"/";
             File file=new File(path);
           if(!file.exists())
           {

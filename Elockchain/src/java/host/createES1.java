@@ -62,7 +62,7 @@ public class createES1 extends HttpServlet {
             String photo="";
             String EiD="E"+RandomGen.randomGen(5);
             id.setAttribute("eid",EiD);
-            String path="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"election_logo/";
+            String path="F:/Elockchain/Temp/Elections/"+HiD+"/"+EiD+"/"+"election_logo/";
           File file=new File(path);
           if(!file.exists())
           {

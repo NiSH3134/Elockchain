@@ -28,6 +28,16 @@ public class election2
         this.date_time = date_time;
     }
 
+    public election2(String type, String path, String id, String name, String descC) {
+        this.type = type;
+        this.path = path;
+        this.id = id;
+        this.name = name;
+        this.descC = descC;
+    }
+    
+        
+    
     public String getType() {
         return type;
     }

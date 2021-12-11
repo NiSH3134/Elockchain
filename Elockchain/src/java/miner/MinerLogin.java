@@ -35,7 +35,7 @@ public class MinerLogin extends HttpServlet
             }
             else 
             {
-                if(db.checkHostPw(password,"miner")==0)
+                if(db.checkHostPw((String)req.getParameter("username"),password,"miner")==0)
                 {
                     res.sendRedirect("miner_user/miner_reg.jsp?s=wp");
                 }

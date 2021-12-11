@@ -40,7 +40,7 @@ public class createES4 extends HttpServlet
         election e=null;
         
         
-        String new_folder="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Main/Elections/"+id.getAttribute("hid")+"/";
+        String new_folder="F:/Elockchain/Main/Elections/"+id.getAttribute("hid")+"/";
             File file=new File(new_folder);
           if(!file.exists())
           {
@@ -97,9 +97,9 @@ public class createES4 extends HttpServlet
                 }
                 e=null;
             }
-             String temp_folder="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Temp/Elections/"+id.getAttribute("hid")+"/"+id.getAttribute("eid")+"/";
-             File file2=new File(temp_folder);
-             FileUtils.deleteDirectory(file2);
+//             String temp_folder="F:/Elockchain/Temp/Elections/"+id.getAttribute("hid")+"/"+id.getAttribute("eid")+"/";
+//             File file2=new File(temp_folder);
+//             FileUtils.deleteDirectory(file2);
              
              MakePDF m=new MakePDF();
              String confirm=m.pdf((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));

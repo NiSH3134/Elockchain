@@ -40,7 +40,7 @@ public class MakePDF
             arr=obj.getPermDetails(eid);
             String name=obj.getElectionName(hid, eid);
             String name2= StringUtils.replace(name," ","_");
-            String file_name="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Main/Elections/"+HiD+"/"+EiD+"/"+name2+".pdf";
+            String file_name="F:/Elockchain/Main/Elections/"+HiD+"/"+EiD+"/"+name2+".pdf";
         
             Document document=new Document();
 

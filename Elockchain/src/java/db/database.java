@@ -221,7 +221,7 @@ public class database
         return chk;
     }
     
-    public int checkHostPw(String pw,String type)
+    public int checkHostPw(String UiD,String pw,String type)
     {
         int chk=0;
         try
@@ -229,11 +229,11 @@ public class database
             connect();
             if(type.equals("host"))
             {
-                query="select HiD from hostdata where password='"+pw+"'";
+                query="select HiD from hostdata where hid='"+UiD+"' and password='"+pw+"'";
             }
             else if(type.equals("miner"))
             {
-                query="select MiD from miner where password='"+pw+"'";
+                query="select MiD from miner where hid='"+UiD+"' and password='"+pw+"'";
             }
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery();

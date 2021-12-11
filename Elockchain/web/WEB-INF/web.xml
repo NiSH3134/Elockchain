@@ -56,6 +56,14 @@
         <servlet-name>createES5</servlet-name>
         <servlet-class>host.createES5</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>checkImg</servlet-name>
+        <servlet-class>voter.checkImg</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>compareImg</servlet-name>
+        <servlet-class>voter.compareImg</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HostServlet</servlet-name>
         <url-pattern>/HostServlet</url-pattern>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>createES5</servlet-name>
         <url-pattern>/createES5</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkImg</servlet-name>
+        <url-pattern>/checkImg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>compareImg</servlet-name>
+        <url-pattern>/compareImg</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

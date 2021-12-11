@@ -249,8 +249,8 @@
                 type="text"
                 name="phoneV"
                 id="phoneV"
-                maxlen="10"
-                minlen="10"
+                maxlength="10"
+                minlength="10"
                 autocomplete="off"
                 placeholder="Voter's Phone Number"
                 />

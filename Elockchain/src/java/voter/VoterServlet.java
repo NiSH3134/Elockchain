@@ -5,82 +5,64 @@
  */
 package voter;
 
+import beans.election2;
+import db.election_create;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author A 04 Nishant Badlani
  */
-public class VoterServlet extends HttpServlet {
+public class VoterServlet extends HttpServlet 
+{
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet VoterServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet VoterServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+        PrintWriter pw=response.getWriter();
+        String eid=request.getParameter("eid");
+        String vid=request.getParameter("vid");
+        HttpSession vids=request.getSession(true);
+        vids.setAttribute("eid", eid);
+        vids.setAttribute("vid", vid);
+        election_create obj=new election_create();
+        String chk=obj.checkEiD(eid);
+        if(chk.equals("ok"))
+        {
+            ArrayList<election2> arr=new ArrayList<>();
+            arr=obj.getPermDetailsforViD(eid, vid);
+            if(arr.size()==0)
+            {
+                response.sendRedirect("voter_process/vote_login1.jsp?st=3");
+                
+            }
+            else
+            {
+                vids.setAttribute("VDet", arr);
+                response.sendRedirect("voter_process/vote_login2.jsp");
+                pw.println("HOLD");
+                pw.println(vids.getAttribute("vid"));
+            }
+           
+        }
+        else if(chk.equals("ended"))
+        {
+            response.sendRedirect("voter_process/vote_login1.jsp?st=1");
+        }
+        else
+        {
+            response.sendRedirect("voter_process/vote_login1.jsp?st=2");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
 
 }

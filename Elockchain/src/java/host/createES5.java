@@ -36,7 +36,7 @@ public class createES5 extends HttpServlet {
         
         String name=obj.getElectionName((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
             String name2= StringUtils.replace(name," ","_");
-            String fileName="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Main/Elections/"+(String)id.getAttribute("hid")+"/"+(String)id.getAttribute("eid")+"/"+name2+".pdf";
+            String fileName="F:/Elockchain/Main/Elections/"+(String)id.getAttribute("hid")+"/"+(String)id.getAttribute("eid")+"/"+name2+".pdf";
          String fileType = "application/pdf";
          //String fileName="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Main/Elections/H2ED2H/E7J51N/TESTING_PDF.pdf";
          response.setContentType(fileType);

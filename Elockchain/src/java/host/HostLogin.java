@@ -37,7 +37,7 @@ public class HostLogin extends HttpServlet
             }
             else 
             {
-                if(db.checkHostPw(password,"host")==0)
+                if(db.checkHostPw((String)req.getParameter("username"),password,"host")==0)
                 {
                     res.sendRedirect("index.jsp?s=wp");
                 }

@@ -22,8 +22,8 @@ public class CopyFile
     
     public static void main(String[] args)
     {
-        File from = new File("E:\\Elockchain FILES\\Elockchain_GIT\\Elockchain\\web\\images\\Elockchain\\Temp\\Elections\\");
-        File to = new File("E:\\Elockchain FILES\\Elockchain_GIT\\Elockchain\\web\\images\\Elockchain\\Main\\Elections\\");
+        File from = new File("F:\\Elockchain\\Temp\\Elections\\");
+        File to = new File("F:\\Elockchain\\Main\\Elections\\");
  
         try {
             FileUtils.moveDirectory(from, to);
@@ -36,8 +36,8 @@ public class CopyFile
     
     public static void moveFile(String hid,String eid)
     {
-        File from = new File("E:\\Elockchain FILES\\Elockchain_GIT\\Elockchain\\web\\images\\Elockchain\\Temp\\Elections\\"+hid+"\\"+eid);
-        File to = new File("E:\\Elockchain FILES\\Elockchain_GIT\\Elockchain\\web\\images\\Elockchain\\Main\\Elections\\"+hid+"\\"+eid);
+        File from = new File("F:\\Elockchain\\Temp\\Elections\\"+hid+"\\"+eid);
+        File to = new File("F:\\Elockchain\\Main\\Elections\\"+hid+"\\"+eid);
  
         try {
             FileUtils.moveDirectory(from, to);

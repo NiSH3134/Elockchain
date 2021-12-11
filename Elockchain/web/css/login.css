@@ -49,6 +49,25 @@ h5 {
     border-radius: 48px;
 }
 
+.box3 {
+    width: 700px;
+    height: auto;
+    font-size: 16px;
+    padding: 40px 40px;
+    background: rgba(5, 5, 5, 0.129);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 48px;
+}
+.box4 {
+    width: 900px;
+    height: auto;
+    font-size: 16px;
+    padding: 40px 40px;
+    background: rgba(5, 5, 5, 0.129);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 48px;
+}
+
 .user {
     margin-top: 50px;
 }
@@ -118,10 +137,25 @@ input:focus {
     cursor: pointer;
     
 }
-
 .btn2 {
     display: block;
     width: 70%;
+    padding: 15px;
+    background-color: rgb(221, 20, 20);
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0.8;
+    transition: .2s all;
+    cursor: pointer;
+    
+}
+
+.btn3 {
+    display: block;
+    width: 90%;
     padding: 15px;
     background-color: rgb(221, 20, 20);
     color: whitesmoke;
@@ -200,6 +234,13 @@ input:focus {
     #block7
     {
         left: 100px;
+        margin: auto;
+        position: absolute;
+    }
+
+    #block8
+    {
+        left: 500px;
         margin: auto;
         position: absolute;
     }
