@@ -70,6 +70,5 @@
 </body>
 <script>
     document.getElementById("election_name").innerHTML="Election Name";
-    
 </script>
 </html>

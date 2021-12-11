@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import beans.election;
+import beans.election2;
 /**
  *
  * @author A 04 Nishant Badlani
@@ -449,5 +450,25 @@ while(rs.next())
         }
         catch(Exception e) { e.printStackTrace(); }
         return  r;
+    }
+    
+    public ArrayList<election2> getPermDetails(String eid)
+    {
+        ArrayList<election2> a=new ArrayList<>();
+        try
+        {
+            connect();
+            query="select * from "+eid+";";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                //(String type, String path, String id, String name, String descC, String emailV, String vtype, String phone_voter, String password_voter, String date_time)
+               a.add(new election2(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10)));
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return a;
     }
 }

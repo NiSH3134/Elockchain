@@ -161,6 +161,6 @@
         </table>
     </div>
             <form action="../createES4" method="post">
-                <a href="finish.jsp" style="text-decoration: none;"><button class="btn2" style="width:90%;">Finish Creation</button></a></form>
+               <button class="btn2" style="width:90%;">Finish Creation</button></form>
     </body>
 </html>

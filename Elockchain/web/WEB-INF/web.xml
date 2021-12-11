@@ -52,6 +52,10 @@
         <servlet-name>createES4</servlet-name>
         <servlet-class>host.createES4</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createES5</servlet-name>
+        <servlet-class>host.createES5</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HostServlet</servlet-name>
         <url-pattern>/HostServlet</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>createES4</servlet-name>
         <url-pattern>/createES4</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createES5</servlet-name>
+        <url-pattern>/createES5</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

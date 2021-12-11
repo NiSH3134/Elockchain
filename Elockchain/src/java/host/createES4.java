@@ -6,10 +6,12 @@
 package host;
 
 import OtherClasses.CopyFile;
+import OtherClasses.MakePDF;
 import beans.election;
 import db.election_create;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +34,7 @@ public class createES4 extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
+        PrintWriter pw=response.getWriter();
         HttpSession id=request.getSession(false);
         election_create obj=new election_create();
         election e=null;
@@ -43,12 +46,10 @@ public class createES4 extends HttpServlet
           {
               file.mkdirs();
           }
-        
-          String temp_folder="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Main/Elections/"+id.getAttribute("hid")+"/"+id.getAttribute("eid")+"/";
-          File file2=new File(temp_folder);
-          FileUtils.deleteDirectory(file2);
+        CopyFile.moveFile((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
+         
           
-          CopyFile.moveFile((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
+          
         obj.createTB((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
         try
         {
@@ -96,6 +97,22 @@ public class createES4 extends HttpServlet
                 }
                 e=null;
             }
+             String temp_folder="E:/Elockchain FILES/Elockchain_GIT/Elockchain/web/images/Elockchain/Temp/Elections/"+id.getAttribute("hid")+"/"+id.getAttribute("eid")+"/";
+             File file2=new File(temp_folder);
+             FileUtils.deleteDirectory(file2);
+             
+             MakePDF m=new MakePDF();
+             String confirm=m.pdf((String)id.getAttribute("hid"), (String)id.getAttribute("eid"));
+             if(confirm.equals("Finished PDF"))
+             {
+                 response.sendRedirect("host_user/finish_election.jsp");
+             }
+             else
+             {
+                 pw.println("ERROR in making PDF");
+             }
+             
+             
         }
         catch(Exception ee) { ee.printStackTrace(); }
         
