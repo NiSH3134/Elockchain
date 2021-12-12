@@ -47,7 +47,7 @@ public class checkImg extends HttpServlet {
         s1.setAttribute("path2","E:/TestImages/"+vid+".JPG");
         if(facedetect.fc("E:/TestImages/"+vid+".JPG").equals("False"))
         {
-            response.sendRedirect("face_snap.jsp?st=1");
+            response.sendRedirect("voter_process/face_snap.jsp?st=1");
         }
         else
         {

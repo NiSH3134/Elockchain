@@ -47,6 +47,7 @@ public class ForgotPassSev extends HttpServlet
                     Email.transferEmail(MailDetails.getHost(), MailDetails.getUser(), Pw.getPass(), MailDetails.getPort(), r, s, m);
                     pw.println("Mail Sent!!");
                     pw.println("FOund");
+                    usertype.setAttribute("uid", req.getParameter("username"));
                     if(usertype.getAttribute("usertype").equals("host"))
                     {
                         res.sendRedirect("forgotDetails.jsp?fd=rp&st=host");

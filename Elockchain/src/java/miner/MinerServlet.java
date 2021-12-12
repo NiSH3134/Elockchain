@@ -11,6 +11,7 @@ import OtherClasses.MailDetails;
 import OtherClasses.Pw;
 import OtherClasses.RandomGen;
 import beans.minerBean;
+import db.blocks;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -48,6 +49,8 @@ public class MinerServlet extends HttpServlet
             db.saveMinerDetail(mb);
             db=null;
             mb=null;
+            blocks b=new blocks();
+            b.create_wallet_m(MiD);
             mreg.invalidate();
         }
         catch(Exception e)
@@ -57,6 +60,7 @@ public class MinerServlet extends HttpServlet
         }
 //        RequestDispatcher rd=req.getRequestDispatcher("index.jsp#lession1");
 //        rd.forward(req, res);
+        
         res.sendRedirect("miner_user/miner_reg.jsp?s=sl");
     }
 }

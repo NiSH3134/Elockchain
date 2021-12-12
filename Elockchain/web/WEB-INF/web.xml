@@ -64,6 +64,10 @@
         <servlet-name>compareImg</servlet-name>
         <servlet-class>voter.compareImg</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResetPassSev</servlet-name>
+        <servlet-class>OtherClasses.ResetPassSev</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HostServlet</servlet-name>
         <url-pattern>/HostServlet</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>compareImg</servlet-name>
         <url-pattern>/compareImg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPassSev</servlet-name>
+        <url-pattern>/ResetPassSev</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

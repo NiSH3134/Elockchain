@@ -6,6 +6,7 @@
 package voter;
 
 import beans.election2;
+import db.blocks;
 import db.election_create;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,10 +47,26 @@ public class VoterServlet extends HttpServlet
             }
             else
             {
-                vids.setAttribute("VDet", arr);
-                response.sendRedirect("voter_process/vote_login2.jsp");
-                pw.println("HOLD");
-                pw.println(vids.getAttribute("vid"));
+                blocks b=new blocks();
+                     if(b.checkVid((String)vids.getAttribute("vid"), (String)vids.getAttribute("eid"))==0)
+                     {
+                         
+                     }
+                     else
+                     {
+                         if(b.checkBalanceVid((String)vids.getAttribute("vid"), (String)vids.getAttribute("eid"))!=1)
+                         {
+                             response.sendRedirect("voter_process/vote_login1.jsp?st=7");
+                         }
+                         else
+                         {
+                             vids.setAttribute("VDet", arr);
+                            response.sendRedirect("voter_process/vote_login2.jsp");
+                            pw.println("HOLD");
+                            pw.println(vids.getAttribute("vid"));
+                         }
+                     }
+                
             }
            
         }

@@ -45,7 +45,10 @@
                     <img src="images/l.png" width="400"><br>
                     <h1>Make Your Own New World</h1>
                     <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
-                    <div id="errors" style="display: block;"></div>
+                    <div id="errors" style="display: block;"></div><br><br>
+                    <a href="miner_user/miner_reg.jsp?s=loginpage" style="text-decoration: none;"><button  type="button" class="btn">Miner Login</button></a> <br><br>
+                    <a href="voter_process/voter_login.jsp" style="text-decoration: none;"><button type="button" class="btn">Voter Login</button></a>
+                    
                 </div>
                 <div class="box"; id="block2">
                     <h1>Host Sign up</h1>
@@ -83,6 +86,7 @@
                         id="mobile"
                         autocomplete="off"
                         placeholder="mobile number"
+                        maxlength="10"
                         pattern="[6-9]{1}[0-9]{9}" 
                         title="Invalid Phone Number" required
                         />
@@ -180,7 +184,9 @@
                     <img src="images/l.png" width="400"><br>
                     <h1>Make Your Own New World</h1>
                     <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
-                    <div id="confirmation" style="display: block;"></div>
+                    <div id="confirmation" style="display: block;"></div><br><br>
+                    <a href="miner_user/miner_reg.jsp?s=loginpage" style="text-decoration: none;"><button  type="button" class="btn">Miner Login</button></a> <br><br>
+                    <a href="voter_process/vote_login1.jsp" style="text-decoration: none;"><button type="button" class="btn">Voter Login</button></a>
                 </div>
                 <div class="box" id="block2">
                     <h1>Host Log In</h1>
@@ -230,12 +236,12 @@
 
  <%
         String chk=null;
+        if(request.getParameterMap().containsKey("s"))
+        {
+            chk=request.getParameter("s");
         
-        chk=request.getParameter("s");
-        try
-        {
             if(chk.equals("sl")) 
-        {
+            {
             %>
             <script>
             document.getElementById("confirmation").innerHTML = "Your ID is created successfully, kindly check your mail for UserID";
@@ -312,9 +318,10 @@
             <%
             }
             else {}
+        
         }
         
-        
-        catch(Exception e) {}
+        else{}
+
     %>
 </html>

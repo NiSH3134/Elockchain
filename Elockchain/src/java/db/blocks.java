@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package db;
+
+
+import OtherClasses.RandomGen;
+import beans.ChainBean;
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,11 +19,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import beans.hostBean;
 import beans.minerBean;
+import beans.pendingBean;
 /**
  *
  * @author A 04 Nishant Badlani
  */
-public class database 
+public class blocks 
 {
     public Connection c=null;
     public ResultSet rs=null;
@@ -46,22 +51,20 @@ public class database
         }
         catch(Exception e) { e.printStackTrace(); }
     }
-
-    //This method will get data from JSP form and store it in database table "hostdata"
-    public int saveHostDetail(hostBean hb)
+    
+    public int create_wallet_c(String cid,String eid)
     {
         int r=0;
         try
         {
             connect();
-            query="insert into hostdata values(?,?,?,?,?,?)";
+            query="insert into wallet values(?,?,?,?)";
             PreparedStatement ps=c.prepareStatement(query);
-            ps.setString(1, hb.getFname());
-            ps.setString(2, hb.getLname());
-            ps.setString(3, hb.getHiD());
-            ps.setString(4, hb.getEmail());
-            ps.setString(5, hb.getPhno());
-            ps.setString(6, hb.getPassword());
+            ps.setString(1, eid);
+            ps.setString(2, cid);
+            ps.setString(3, RandomGen.randomGen(16).toLowerCase());
+            ps.setInt(4, 0);
+           
             r=ps.executeUpdate(); 
             disconnect();
             query=null;
@@ -74,48 +77,172 @@ public class database
         return r;
     }
     
-    public String getHostName(String hid)
+    public int create_wallet_m(String mid)
     {
-       String fname=null;
+        int r=0;
         try
         {
             connect();
-            query="select * from hostdata where HiD='"+hid+"'";
+            query="insert into wallet values(?,?,?,?)";
             PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                fname=rs.getString(1)+rs.getString(2);
-            }
-            rs=null;
+            ps.setString(1, "na");
+            ps.setString(2, mid);
+            ps.setString(3, RandomGen.randomGen(16).toLowerCase());
+            ps.setInt(4, 0);
+           
+            r=ps.executeUpdate(); 
             disconnect();
             query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public int create_wallet_v(String vid,String eid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into wallet values(?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            ps.setString(1, eid);
+            ps.setString(2, vid);
+            ps.setString(3, RandomGen.randomGen(16).toLowerCase());
+            ps.setInt(4, 1);
+           
+            r=ps.executeUpdate(); 
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public int checkVid(String vid, String eid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="select * from wallet where id='"+vid+"' and eid='"+eid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery(); 
+            while(rs.next())
+            {
+                r++;
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public int checkBalanceVid(String vid, String eid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="select Wallet_Balance from wallet where id='"+vid+"' and eid='"+eid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery(); 
+            while(rs.next())
+            {
+                r=rs.getInt("Wallet_Balance");
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public int checkBalanceMiner(String mid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="select Wallet_Balance from wallet where mid='"+mid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery(); 
+            while(rs.next())
+            {
+                r=rs.getInt("Wallet_Balance");
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public static String getPrevious_hash()
+    {
+        String ph=null;
+         String query2=null;
+         ResultSet rs2=null;
+         blocks b=null;
+         try
+        {
+            b=new blocks();
+            b.connect();
+            Connection c=b.c;
+            query2="select hash from main_chain ORDER BY time_block DESC LIMIT 1;";
+            PreparedStatement ps=c.prepareStatement(query2);
+            rs2=ps.executeQuery(); 
+            while(rs2.next())
+            {
+                ph=rs2.getString(1);
+            }
+            b.disconnect();
+            query2=null;
+            rs2=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return ph;
+    }
+    
+    public int addPendingBlock(pendingBean obj)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="insert into pending_transaction values(?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            ps.setString(1, obj.getTo());
+            ps.setString(2, obj.getFrom());
+            ps.setString(3, d.toString());
+            ps.setInt(4, obj.getAmount());
+            ps.setString(5, obj.getPrevious_hash());
             
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-       return fname;
-    }
-    
-    public int saveMinerDetail(minerBean mb)
-    {
-        int r=0;
-        try
-        {
-            connect();
-            query="insert into miner values(?,?,?,?,?,?,?,?)";
-            PreparedStatement ps=c.prepareStatement(query);
-            ps.setString(1, mb.getFname());
-            ps.setString(2, mb.getLname());
-            ps.setString(3, mb.getMiD());
-            ps.setString(4, mb.getEmail());
-            ps.setString(5, mb.getPhone());
-            ps.setString(6, mb.getAcc_no());
-            ps.setString(7, mb.getAcc_ifsc());
-            ps.setString(8, mb.getPassword());
             r=ps.executeUpdate(); 
             disconnect();
             query=null;
@@ -127,26 +254,50 @@ public class database
         }
         return r;
     }
-
-    public int checkUiD(String UiD,String type)
+    
+    public int addChainBlock(ChainBean obj)
     {
-        int chk=0;
+        int r=0;
         try
         {
             connect();
-            if(type.equals("host"))
-            {
-                query="select HiD from hostdata where HiD='"+UiD+"'";
-            }
-            else if(type.equals("miner"))
-            {
-                query="select MiD from miner where MiD='"+UiD+"'";
-            }
+            query="insert into pending_transaction values(?,?,?,?,?)";
+            PreparedStatement ps=c.prepareStatement(query);
+            ps.setString(1, obj.getTo());
+            ps.setString(2, obj.getTime_transaction());
+            ps.setString(3, d.toString());
+            ps.setString(4, obj.getPrevioushash());
+            ps.setString(5, obj.getHash());
+            
+            r=ps.executeUpdate(); 
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public static void main(String p [])
+    {
+        System.out.println(getPrevious_hash());
+    }
+    
+    public String getWalletId(String uid)
+    {
+        String r=null;
+        try
+        {
+            connect();
+            query="select Wallet_ID from wallet where id='"+uid+"'";
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery();
             while(rs.next())
             {
-                chk++;
+                r=rs.getString(1);
             }
             disconnect();
             query=null;
@@ -156,29 +307,20 @@ public class database
             System.out.println(e);
             e.printStackTrace();
         }
-        return chk;
+        return r;
     }
     
-    public int checkPhno(String phone,String type)
+    public int updateBalance(String wid, int bal)
     {
-        int chk=0;
+        int r=0;
         try
         {
             connect();
-            if(type.equals("host"))
-            {
-                query="select HiD from hostdata where phone='"+phone+"'";
-            }
-            else if(type.equals("miner"))
-            {
-                query="select MiD from miner where phone='"+phone+"'";
-            }
+            query="update wallet set Wallet_Balance=? where Wallet_ID='"+wid+"'";
             PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                chk++;
-            }
+            ps.setInt(1, bal);
+            r=ps.executeUpdate();
+            
             disconnect();
             query=null;
         }
@@ -187,156 +329,6 @@ public class database
             System.out.println(e);
             e.printStackTrace();
         }
-        return chk;
-    }
-    
-    public int checkEmail(String email,String type)
-    {
-        int chk=0;
-        try
-        {
-            connect();
-            if(type.equals("host"))
-            {
-                query="select HiD from hostdata where email='"+email+"'";
-            }
-            else if(type.equals("miner"))
-            {
-                query="select MiD from miner where email='"+email+"'";
-            }
-            PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                chk++;
-            }
-            disconnect();
-            query=null;
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return chk;
-    }
-    
-    public int checkHostPw(String UiD,String pw,String type)
-    {
-        int chk=0;
-        try
-        {
-            connect();
-            if(type.equals("host"))
-            {
-                query="select HiD from hostdata where hid='"+UiD+"' and password='"+pw+"'";
-            }
-            else if(type.equals("miner"))
-            {
-                query="select MiD from miner where mid='"+UiD+"' and password='"+pw+"'";
-            }
-            PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                chk++;
-            }
-            disconnect();
-            query=null;
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return chk;
-    }
-    
-    public int CheckEmailForID(String UID,String Email,String type)
-    {
-        int chk=0;
-        try
-        {
-            connect();
-            if(type.equals("host"))
-            {
-                query="select HiD from hostdata where HiD='"+UID+"' and email='"+Email+"';";
-            }
-            else if(type.equals("miner"))
-            {
-                query="select MiD from miner where MiD='"+UID+"' and email='"+Email+"';";
-            }
-            PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                chk++;
-            }
-            disconnect();
-            query=null;
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return chk;
-    }
-    
-    public String UIDforEmail(String Email,String type)
-    {
-        String UiD=null;
-        try
-        {
-            connect();
-            if(type.equals("host"))
-            {
-                query="select * from hostdata where email='"+Email+"';";
-            }
-            else if(type.equals("miner"))
-            {
-                query="select * from miner where email='"+Email+"';";
-            }
-            PreparedStatement ps=c.prepareStatement(query);
-            rs=ps.executeQuery();
-            while(rs.next())
-            {
-                UiD=rs.getString(3);
-            }
-            disconnect();
-            query=null;
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return UiD;
-    }
-    
-    public int updatePw(String UID,String type,String password)
-    {
-        int chk=0;
-        try
-        {
-            connect();
-            if(type.equals("host"))
-            {
-                query="update hostdata set password='"+password+"' where HiD='"+UID+"';";
-            }
-            else if(type.equals("miner"))
-            {
-                query="update miner set password='"+password+"' where MiD='"+UID+"';";
-            }
-            PreparedStatement ps=c.prepareStatement(query);
-            chk=ps.executeUpdate();
-            query=null;
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return chk;
+        return r;
     }
 }

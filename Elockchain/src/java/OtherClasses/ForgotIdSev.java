@@ -39,6 +39,15 @@ public class ForgotIdSev extends HttpServlet {
                     String m="A forgot Username request on Elockchain website was done for your ID, your ID is : "+UiD;
                     Email.transferEmail(MailDetails.getHost(), MailDetails.getUser(), Pw.getPass(), MailDetails.getPort(), r, s, m);
                     pw.println("Sent!!");
+                    if(usertype.getAttribute("usertype").equals("host"))
+                    {
+                        res.sendRedirect("index.jsp?s=loginpage");
+                    }
+                    else if(usertype.getAttribute("usertype").equals("miner"))
+                    {
+                        res.sendRedirect("miner_user/miner_reg.jsp?s=loginpage");
+                    }
+                    else {}
                 }
                 else
                 {

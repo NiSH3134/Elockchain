@@ -54,6 +54,12 @@
                             <div id="msg">This Voter is not registered for the entered Election</div><Br<br><Br>
                             <%
                         }
+                        if(request.getParameter("st").equals("7"))
+                        {
+                            %>
+                            <div id="msg">You have already Voted.</div><Br<br><Br>
+                            <%
+                        }
                     }
                 %>
                 

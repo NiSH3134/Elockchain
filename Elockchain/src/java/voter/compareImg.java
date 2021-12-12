@@ -98,7 +98,7 @@ public class compareImg extends HttpServlet {
         }
         else
         {
-            response.sendRedirect("face_snap.jsp?st=2");
+            response.sendRedirect("voter_process/face_snap.jsp?st=2");
         }
     }
 

@@ -46,7 +46,9 @@
                     <img src="../images/l.png" width="400"><br>
                     <h1>Make Your Own New World</h1>
                     <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
-                    <div id="errors" style="display: block;"></div>
+                    <div id="errors" style="display: block;"></div><br><br>
+                    <a href="../index.jsp?s=loginpage" style="text-decoration: none;"><button  type="button" class="btn">Miner Login</button></a> <br><br>
+                    <a href="../voter_process/vote_login1.jsp" style="text-decoration: none;"><button type="button" class="btn">Voter Login</button></a>
                 </div>
                 <div class="box"; id="block2">
                     <h1>Miner Sign up</h1>
@@ -196,7 +198,9 @@
                     <img src="../images/l.png" width="400"><br>
                     <h1>Make Your Own New World</h1>
                     <h3 style="color: black;"><em>GIVE VOTE AND CHOOSE YOUR OWN LEADER<br> WITH ELOCKCHAIN</em></h3>
-                    <div id="confirmation" style="display: block;"></div>
+                    <div id="confirmation" style="display: block;"></div><br><br>
+                    <a href="../index.jsp?s=loginpage" style="text-decoration: none;"><button  type="button" class="btn">Miner Login</button></a> <br><br>
+                    <a href="../voter_process/vote_login1.jsp" style="text-decoration: none;"><button type="button" class="btn">Voter Login</button></a>
                 </div>
                 <div class="box" id="block2">
                     <h1>Miner Log In</h1>
@@ -241,10 +245,14 @@
 <script src="../js/miner.js"></script>
 <%
         String chk=null;
-        
-        chk=request.getParameter("s");
-        try
+        if(request.getParameterMap().containsKey("s"))
         {
+            
+        if(request.getParameterMap().containsKey("s"))
+        {
+        chk=request.getParameter("s");
+        
+            
             if(chk.equals("sl")) 
         {
             %>
@@ -326,6 +334,8 @@
         }
         
         
-        catch(Exception e) {}
+        
+}
+
     %>
 </html>

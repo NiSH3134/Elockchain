@@ -3,6 +3,7 @@
     Created on : 11 Dec, 2021, 11:34:04 PM
     Author     : A 04 Nishant Badlani
 --%>
+<%@page import="db.blocks"%>
 <%@page import="beans.election2"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="db.election_create"%>
@@ -31,7 +32,19 @@
             <div class="navcontainer">
                 <img src="../images/l.png" alt="" width="300px">
                 <%
-                     HttpSession vids=request.getSession(false);
+                    HttpSession vids=request.getSession(false);
+                     blocks b=new blocks();
+                     if(b.checkVid((String)vids.getAttribute("vid"), (String)vids.getAttribute("eid"))==0)
+                     {
+                         b.create_wallet_v((String)vids.getAttribute("vid"), (String)vids.getAttribute("eid"));
+                     }
+                     else
+                     {
+                         if(b.checkBalanceVid((String)vids.getAttribute("vid"), (String)vids.getAttribute("eid"))!=1)
+                         {
+                             response.sendRedirect("voter_process/vote_login1?st=7");
+                         }
+                     }
                      ArrayList<election2> arr2=(ArrayList<election2>)vids.getAttribute("VDet");
                     String vname=null;
                     String vid2=null;   
@@ -137,7 +150,7 @@
                                 <h1><%=obj2.getDescC()%></h1>
                             </td>
                             <td width="20%">
-                                <button class="btn">vote</button>
+                                <a href="vote_finish.jsp?eid=<%=(String)vids.getAttribute("eid")%>&vid=<%=(String)vids.getAttribute("vid")%>&cid=<%=obj2.getId()%>"<button class="btn">vote</button></a>
                             </td>
                     </tr>
                             <%
