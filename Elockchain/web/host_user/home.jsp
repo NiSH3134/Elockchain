@@ -40,12 +40,12 @@
                 <a href="create_election.jsp?st=basic" class="icon" style="background-color: orange;text-decoration: none;">
                      <h1>Create Election</h1>
                 </a>
-                <a href="#" class="icon" style="background-color: red;">
-                    <h1>View Current Election</h1>
+                <a href="view_election.jsp"  class="icon" style="background-color: red;text-decoration: none;">
+                    <h1>Result of Election</h1>
                 </a>
-                <a href="#" class="icon" style="background-color: blue;">
+<!--                <a href="#" class="icon" style="background-color: blue;">
                     <h1>View election History</h1>
-                </a>
+                </a>-->
                 
             </div>
         </div>

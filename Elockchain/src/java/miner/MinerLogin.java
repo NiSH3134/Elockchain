@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,7 +42,10 @@ public class MinerLogin extends HttpServlet
                 }
                 else
                 {
+                    HttpSession minerD=req.getSession(true);
+                    minerD.setAttribute("mid", req.getParameter("username"));
                     pw.println("id found");
+                    res.sendRedirect("miner_user/mining.jsp");
                     //forward to home page
                 }    
             }

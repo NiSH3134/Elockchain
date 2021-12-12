@@ -29,6 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voter</title>
     <link rel="stylesheet" href="../css/css1.css">
+     <link rel="stylesheet" href="../css/top.css">
     <style>
         img
         {
@@ -143,11 +144,11 @@
                     type="text"
                     name="password"
                     id="password"
-                    maxlength="6"
-                    minlength="6"
+                    maxlength="8"
+                    minlength="8"
                     autocomplete="off"
                     onkeyup='check2();'
-                    placeholder="OTP" required
+                    placeholder="Password" required
                         />
                         <span id='message2'></span>
                     /><br><button type="Submit">Next</button></form>
@@ -164,8 +165,8 @@
                     String s="Your OTP for Elockchain Voter Login";
                     String m="Hello, "+ee.getName()+", your Voter ID : "+ee.getId()+" and your Login OTP is : "+otp;
                     Email.transferEmail(MailDetails.getHost(), MailDetails.getUser(), Pw.getPass(), MailDetails.getPort(), r, s, m);
-                    out.println("Mail Sent!!");
-                    out.println("FOund");
+                    //out.println("Mail Sent!!");
+                    //out.println("FOund");
                       %>
                       <div id="otp"><form action="voting.jsp">
                     <input 

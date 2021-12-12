@@ -339,4 +339,29 @@ public class database
         }
         return chk;
     }
+    
+    public String getMinerName(String MiD)
+    {
+        String name=null;
+        try
+        {
+            connect();
+            query="select * from miner where MiD='"+MiD+"'";
+            
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                name=rs.getString(1)+" "+rs.getString(2);
+            }
+            query=null;
+            rs=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return name;
+    }
 }

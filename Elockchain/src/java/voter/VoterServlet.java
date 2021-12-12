@@ -50,7 +50,10 @@ public class VoterServlet extends HttpServlet
                 blocks b=new blocks();
                      if(b.checkVid((String)vids.getAttribute("vid"), (String)vids.getAttribute("eid"))==0)
                      {
-                         
+                         vids.setAttribute("VDet", arr);
+                            response.sendRedirect("voter_process/vote_login2.jsp");
+                            pw.println("HOLD");
+                            pw.println(vids.getAttribute("vid"));
                      }
                      else
                      {

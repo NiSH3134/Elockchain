@@ -538,6 +538,26 @@ while(rs.next())
         return r;
     }
     
+    public String getEiDforHiD(String hid)
+    {
+        String r="nf";
+        try
+        {
+            connect();
+            query="select eid from host_election where hid='"+hid+"' and status='started';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                r=rs.getString(1);
+            }
+            disconnect();
+        }
+        catch(Exception e) { e.printStackTrace(); }
+        return r;
+    }
+    
+    
     public String getElectionLogo2(String eid)
     {
         String r="nf";

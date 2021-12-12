@@ -175,13 +175,13 @@ public class blocks
         return r;
     }
     
-    public int checkBalanceMiner(String mid)
+    public int getBalance(String id)
     {
         int r=0;
         try
         {
             connect();
-            query="select Wallet_Balance from wallet where mid='"+mid+"';";
+            query="select Wallet_Balance from wallet where ID='"+id+"';";
             PreparedStatement ps=c.prepareStatement(query);
             rs=ps.executeQuery(); 
             while(rs.next())
@@ -261,13 +261,14 @@ public class blocks
         try
         {
             connect();
-            query="insert into pending_transaction values(?,?,?,?,?)";
+            query="insert into main_chain  values(?,?,?,?,?,?)";
             PreparedStatement ps=c.prepareStatement(query);
-            ps.setString(1, obj.getTo());
-            ps.setString(2, obj.getTime_transaction());
-            ps.setString(3, d.toString());
-            ps.setString(4, obj.getPrevioushash());
-            ps.setString(5, obj.getHash());
+            ps.setString(1, obj.getFrom());
+            ps.setString(2, obj.getTo());
+            ps.setString(3, obj.getTime_transaction());
+            ps.setString(4, d.toString());
+            ps.setString(5, obj.getPrevioushash());
+            ps.setString(6, obj.getHash());
             
             r=ps.executeUpdate(); 
             disconnect();
@@ -321,6 +322,103 @@ public class blocks
             ps.setInt(1, bal);
             r=ps.executeUpdate();
             
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    public ArrayList<pendingBean> getPendingTransaction()
+    {
+        ArrayList<pendingBean> arr=new ArrayList<>();
+        
+        //String to, String from, String time, String previous_hash, int amount
+        try
+        {
+            connect();
+            query="select * from pending_transaction";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                arr.add(new pendingBean(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(5),rs.getInt(4)));
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return arr;
+    }
+    
+    public ArrayList<ChainBean> getChain()
+    {
+        ArrayList<ChainBean> arr=new ArrayList<>();
+        
+        //(String to, String previoushash, String hash, String time_block, String time_transaction, int amount)
+        try
+        {
+            connect();
+            query="select * from main_chain";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery();
+            while(rs.next())
+            {
+                arr.add(new ChainBean(rs.getString(1),rs.getString(2),rs.getString(5),rs.getString(6),rs.getString(4),rs.getString(3),1));
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return arr;
+    }
+    
+    public int getBalancefromWiD(String wid)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="select Wallet_Balance from wallet where Wallet_ID='"+wid+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            rs=ps.executeQuery(); 
+            while(rs.next())
+            {
+                r=rs.getInt("Wallet_Balance");
+            }
+            disconnect();
+            query=null;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return r;
+    }
+    
+    
+    public int removePending(String from)
+    {
+        int r=0;
+        try
+        {
+            connect();
+            query="delete from pending_transaction where from_w='"+from+"';";
+            PreparedStatement ps=c.prepareStatement(query);
+            r=ps.executeUpdate();
             disconnect();
             query=null;
         }
